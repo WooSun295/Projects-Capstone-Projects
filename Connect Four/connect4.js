@@ -85,7 +85,9 @@ const placeInTable = (y, x) => {
 
 const endGame = (msg) => {
    // TODO: pop up alert message
-   alert(msg);
+   setTimeout(() => {
+      alert(msg);
+   }, 300);
 };
 
 /** handleClick: handle click of column top to play piece */
