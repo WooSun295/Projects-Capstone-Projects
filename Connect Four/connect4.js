@@ -59,7 +59,7 @@ const makeHtmlBoard = () => {
 
 const findSpotForCol = (x) => {
    for (let i = HEIGHT - 1; i >= 0; i--) {
-      if (board[i][x] === null) return i;
+      if (!board[i][x]) return i;
    }
    return null;
    // TODO: write the real version of this, rather than always returning 0
@@ -71,11 +71,14 @@ const placeInTable = (y, x) => {
    // TODO: make a div and insert into correct table cell
    const piece = document.createElement("div");
    const selectedTd = document.getElementById(`${y}-${x}`);
-   if (currPlayer === 1) {
-      piece.style.backgroundColor = "red";
-   } else if (currPlayer === 2) {
-      piece.style.backgroundColor = "blue";
-   }
+
+   piece.style.background = currPlayer === 1 ? "red" : "blue";
+   // if (currPlayer === 1) {
+   //    piece.style.backgroundColor = "red";
+   // } else {
+   //    piece.style.backgroundColor = "blue";
+   // }
+
    piece.setAttribute("class", "piece");
    selectedTd.append(piece);
    board[y][x] = currPlayer;
@@ -99,7 +102,7 @@ function handleClick(evt) {
    // get next spot in column (if none, ignore click)
    const y = findSpotForCol(x);
 
-   if (y === null) {
+   if (!y) {
       return;
    }
 
@@ -113,13 +116,13 @@ function handleClick(evt) {
    } else if (checkForTie()) {
       return endGame(`It's a tie between Player 1 and 2!`);
    }
-   if (currPlayer === 1)
-      //  check for tie
-      //  TODO: check if all cells in board are filled; if so call, call endGame
-      //  switch players
-      //  TODO: switch currPlayer 1 <-> 2
-      currPlayer = 2;
-   else if (currPlayer === 2) currPlayer = 1;
+   //  check for tie
+   //  TODO: check if all cells in board are filled; if so call, call endGame
+   //  switch players
+   //  TODO: switch currPlayer 1 <-> 2
+   currPlayer = currPlayer === 1 ? 2 : 1;
+   // if (currPlayer === 1) currPlayer = 2;
+   // else if (currPlayer === 2) currPlayer = 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -133,39 +136,44 @@ const checkForWin = () => {
       return cells.every(
          ([y, x]) =>
             y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH && board[y][x] === currPlayer
+         //returns true if and only if the 4 cells are within legal x and y boundaries of the game
+         //and the cell has the value of "currPlayer" as set from placeInTable()
       );
    };
 
    // TODO: read and understand this code. Add comments to help you.
 
    for (let y = 0; y < HEIGHT; y++) {
+      //loops over each row
       for (let x = 0; x < WIDTH; x++) {
+         //loops over each colmn
          const horiz = [
             [y, x],
             [y, x + 1],
-            [y, x + 2],
+            [y, x + 2], //sets an array from the selected cell to 3 over horizontally
             [y, x + 3],
          ];
          const vert = [
             [y, x],
             [y + 1, x],
-            [y + 2, x],
+            [y + 2, x], //sets an array from the selected cell to 3 vertically
             [y + 3, x],
          ];
          const diagDR = [
             [y, x],
             [y + 1, x + 1],
-            [y + 2, x + 2],
+            [y + 2, x + 2], //sets an array from the selected cell to 3 diagonally down to the right
             [y + 3, x + 3],
          ];
          const diagDL = [
             [y, x],
             [y + 1, x - 1],
-            [y + 2, x - 2],
+            [y + 2, x - 2], //sets an array from the selected cell to 3 diagonally down to the left
             [y + 3, x - 3],
          ];
 
          if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+            //calls the _win function 4 times for each created array
             return true;
          }
       }
@@ -174,12 +182,14 @@ const checkForWin = () => {
 
 const checkForTie = () => {
    for (let y = 0; y < HEIGHT; y++) {
+      //loops over each row
       for (let x = 0; x < WIDTH; x++) {
+         //loops over each column in each row
          if (board[y][x] === null) return false;
       }
    }
    return true;
-};
+}; //checks to see if the whole board is filled, if not, the game continues
 
 makeBoard();
 makeHtmlBoard();
