@@ -1,0 +1,8 @@
+Was Working on:
+    having problems with newStory submitting without having all input filled out/url being in right format
+
+Still left:
+    Impliment the whole login/signup
+    Favorite and My Stories list
+    delete Stories
+    
