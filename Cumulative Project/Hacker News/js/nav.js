@@ -62,6 +62,8 @@ function onlyFavoriteStories() {
 
       for (let story of favoriteStories) {
          const $favStory = generateStoryMarkup(new Story(story));
+         $favStory.children()[0].checked = true;
+         // $favStory.children[0].checked = true;
          $favorites.append($favStory);
       }
 
@@ -113,10 +115,12 @@ async function deleteUserStory(e) {
    for (let i = 0; i < ownStories.length; i++) {
       if (ownStories[i].storyId === response.data.story.storyId) {
          currentUser.ownStories.splice(i, 1);
+         currentUser.favorites.splice(i, 1);
       }
    }
 
    $(this).parent().remove();
 
+   updateUserFavorites();
    onlyUserStories();
 }

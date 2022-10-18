@@ -115,32 +115,37 @@ async function checkboxesForFavorite(e) {
    const id = e.target.parentElement.id;
    const username = currentUser.username;
    const token = currentUser.loginToken;
+   let response;
 
    if (e.target.checked) {
-      for (let i = 0; i < storyList.stories.length; i++) {
-         if (storyList.stories[i].storyId === id) {
-            const response = await axios({
-               url: `${BASE_URL}/users/${username}/favorites/${id}`,
-               method: "POST",
-               data: { token },
-            });
-            currentUser = response.data.user;
-         }
-      }
+      response = await axios({
+         url: `${BASE_URL}/users/${username}/favorites/${id}`,
+         method: "POST",
+         data: { token },
+      });
+   } else if (!e.target.checked) {
+      response = await axios({
+         url: `${BASE_URL}/users/${username}/favorites/${id}`,
+         method: "DELETE",
+         data: { token },
+      });
    }
-   if (!e.target.checked) {
-      for (let i = 0; i < currentUser.favorites.length; i++) {
-         if (currentUser.favorites[i].storyId === id) {
-            const response = await axios({
-               url: `${BASE_URL}/users/${username}/favorites/${id}`,
-               method: "DELETE",
-               data: { token },
-            });
-            currentUser = response.data.user;
-         }
-      }
-   }
+
+   let { user } = response.data;
+
+   currentUser = new User(
+      {
+         username: user.username,
+         name: user.name,
+         createdAt: user.createdAt,
+         favorites: user.favorites,
+         ownStories: user.stories,
+      },
+      token
+   );
+
    updateUserFavorites();
+   saveUserCredentialsInLocalStorage();
 }
 
-$stars.on("click", "input", checkboxesForFavorite);
+$stars.on("click", "input[type*='checkbox']", checkboxesForFavorite);
