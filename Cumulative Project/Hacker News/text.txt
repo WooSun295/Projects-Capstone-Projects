@@ -1,8 +1,6 @@
 Was Working on:
-    having problems with newStory submitting without having all input filled out/url being in right format
+    having problem with changing profile
 
 Still left:
-    Impliment the whole login/signup
-    Favorite and My Stories list
-    delete Stories
+    when myStory is deleted and user refresh to main page, the deleted story is still there
     

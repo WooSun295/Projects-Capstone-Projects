@@ -110,7 +110,7 @@ async function submitNewStory(e) {
    $newStoryForm.hide(500);
 }
 
-$newStorySubmit.on("submit", submitNewStory);
+$newStoryForm.on("submit", submitNewStory);
 
 async function checkboxesForFavorite(e) {
    const id = e.target.parentElement.id;
