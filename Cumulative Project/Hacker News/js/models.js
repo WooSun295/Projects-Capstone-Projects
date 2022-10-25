@@ -163,10 +163,10 @@ class User {
          user.username = username;
       }
       if (password) {
-         newUser.password = password;
+         user.password = password;
       }
 
-      if (Object.keys(newUser).length === 0) {
+      if (Object.keys(user).length === 0) {
          return;
       }
 
@@ -176,18 +176,15 @@ class User {
          data: { token, user },
       });
 
-      // let { newUser } = response.data;
+      let { user: newUser } = response.data;
 
-      // return new User(
-      //    {
-      //       username: newUser.username,
-      //       name: newUser.name,
-      //       createdAt: newUser.createdAt,
-      //       favorites: newUser.favorites,
-      //       ownStories: newUser.stories,
-      //    },
-      //    response.data.token
-      // );
+      if (!newUser.password) newUser.password = password;
+
+      console.log(newUser.username, newUser.password);
+
+      currentUser = await User.login(newUser.username, newUser.password);
+
+      return;
    }
 
    /** Login in user with API, make User instance & return it.

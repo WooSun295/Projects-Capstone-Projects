@@ -91,6 +91,7 @@ function localStorageFav() {
 }
 
 async function submitNewStory(e) {
+   e.preventDefault();
    const author = $("#newStory-author").val();
    const title = $("#newStory-title").val();
    const url = $("#newStory-url").val();
@@ -109,7 +110,7 @@ async function submitNewStory(e) {
    $newStoryForm.hide(500);
 }
 
-$newStorySubmit.on("click", submitNewStory);
+$newStorySubmit.on("submit", submitNewStory);
 
 async function checkboxesForFavorite(e) {
    const id = e.target.parentElement.id;

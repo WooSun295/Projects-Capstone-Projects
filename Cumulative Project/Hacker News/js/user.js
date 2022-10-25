@@ -77,7 +77,7 @@ async function updateUserProfile(e) {
    const username = $("#change-username").val();
    const password = $("#change-password").val();
 
-   currentUser = await User.updateProfile(username, password, name);
+   await User.updateProfile(username, password, name);
 
    console.log(currentUser);
    // saveUserCredentialsInLocalStorage();
