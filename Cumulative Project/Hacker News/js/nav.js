@@ -117,6 +117,9 @@ async function deleteUserStory(e) {
          currentUser.ownStories.splice(i, 1);
          currentUser.favorites.splice(i, 1);
       }
+
+      if (storyList.stories[i].storyId === response.data.story.storyId)
+         storyList.stories.splice(i, 1);
    }
 
    $(this).parent().remove();

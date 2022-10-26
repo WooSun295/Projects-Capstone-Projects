@@ -2,5 +2,4 @@ Was Working on:
     having problem with changing profile
 
 Still left:
-    when myStory is deleted and user refresh to main page, the deleted story is still there
     
