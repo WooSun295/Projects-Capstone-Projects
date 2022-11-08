@@ -176,13 +176,13 @@ class User {
          data: { token, user },
       });
 
-      let { user: newUser } = response.data;
+      // let { user: newUser } = response.data;
 
-      if (!newUser.password) newUser.password = password;
+      // if (!newUser.password) newUser.password = password;
 
-      console.log(newUser.username, newUser.password);
+      // console.log(newUser.username, newUser.password);
 
-      currentUser = await User.login(newUser.username, newUser.password);
+      // currentUser = await User.login(newUser.username, newUser.password);
 
       return;
    }

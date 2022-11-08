@@ -79,8 +79,10 @@ async function updateUserProfile(e) {
 
    await User.updateProfile(username, password, name);
 
-   console.log(currentUser);
+   // console.log(currentUser);
    // saveUserCredentialsInLocalStorage();
+   localStorage.clear();
+   location.reload();
 }
 
 $("#change-profile").on("click", updateUserProfile);
