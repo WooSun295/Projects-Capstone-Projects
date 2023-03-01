@@ -11,6 +11,8 @@ async function commonBeforeAll() {
 
    await db.query("DELETE FROM jobs");
 
+   await db.query("DELETE FROM applications");
+
    await db.query(`
     INSERT INTO companies(handle, name, num_employees, description, logo_url)
     VALUES ('c1', 'C1', 1, 'Desc1', 'http://c1.img'),
@@ -36,7 +38,7 @@ async function commonBeforeAll() {
    await db.query(`
    INSERT INTO jobs(title, salary, equity, company_handle)
    VALUES ('j1', 1, 0.1, 'c1'),
-          ('j2', 2, 0.2, 'c2'),
+          ('j2', 2, 0.0, 'c3'),
           ('j3', 3, 0.3, 'c3')`);
 }
 

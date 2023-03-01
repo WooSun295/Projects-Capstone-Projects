@@ -1,0 +1,27 @@
+{
+   "$schema": "https://json-schema.org/draft/2019-09/schema",
+   "$id": "http://example.com/example.json",
+   "type": "object",
+   "properties": {
+      "title": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 30
+      },
+      "salary": {
+         "type": "integer",
+         "minimum": 0
+      },
+      "equity": {
+         "type": "integer",
+         "maximum": 1.0
+      },
+      "company_handle": {
+         "type": "string",
+         "minLength": 1,
+         "maxLength": 10
+      }
+   },
+   "additionalProperties": false,
+   "required": ["title", "salary", "equity", "company_handle"]
+}

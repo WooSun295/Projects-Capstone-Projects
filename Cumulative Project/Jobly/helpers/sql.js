@@ -32,4 +32,19 @@ function companyFilter(name, min, max) {
    return filter.join(" AND ");
 }
 
-module.exports = { sqlForPartialUpdate, companyFilter };
+function jobFilter(title, minS, hasE) {
+   const filter = [];
+   if (title) {
+      filter.push(`UPPER(title) LIKE UPPER('%${title}%')`);
+   }
+   if (minS) {
+      filter.push(`salary >= ${minS}`);
+   }
+   if (hasE) {
+      filter.push(`equity > 0`);
+   }
+
+   return filter.join(" AND ");
+}
+
+module.exports = { sqlForPartialUpdate, companyFilter, jobFilter };

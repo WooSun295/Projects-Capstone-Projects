@@ -9,7 +9,7 @@ class Job {
       const result = await db.query(
          `INSERT INTO jobs (title, salary, equity, company_handle)
             VALUES ($1, $2, $3, $4)
-            RETURNING title, salary, equity, company_handle`,
+            RETURNING id, title, salary, equity, company_handle`,
          [title, salary, equity, company_handle]
       );
       const job = result.rows[0];
@@ -19,7 +19,8 @@ class Job {
 
    static async findAll() {
       const jobsRes = await db.query(
-         `SELECT title,
+         `SELECT id,
+                title,
                 salary,
                 equity,
                 company_handle AS "company"
@@ -29,58 +30,74 @@ class Job {
       return jobsRes.rows;
    }
 
-   static async get(title) {
+   static async filterBy(filter) {
+      const jobsRes = await db.query(
+         `SELECT id,
+                title,
+                salary,
+                equity,
+                company_handle AS "company"
+         FROM jobs
+         WHERE ${filter}
+         ORDER BY title`
+      );
+      return jobsRes.rows;
+   }
+
+   static async get(id) {
       const jobRes = await db.query(
-         `SELECT title,
+         `SELECT id, 
+                title,
                 salary,
                 equity,
                 company_handle AS "company"
             FROM jobs
-            WHERE title = $1`,
-         [title]
+            WHERE id = $1`,
+         [id]
       );
 
       const job = jobRes.rows[0];
 
-      if (!job) throw new NotFoundError(`No job: ${title}`);
+      if (!job) throw new NotFoundError(`No job: ${id}`);
 
       return job;
    }
 
-   static async update(title, data) {
+   static async update(id, data) {
       const { setCols, values } = sqlForPartialUpdate(data, {
          title: "title",
          salary: "salary",
          equity: "equity",
       });
-      const titleVarIdx = "$" + (values.length + 1);
+      const idVarIdx = "$" + (values.length + 1);
 
       const querySql = `UPDATE jobs
                         SET ${setCols}
-                        WHERE title = ${titleVarIdx}
-                        RETURNING title,
+                        WHERE id = ${idVarIdx}
+                        RETURNING id,
+                                title,
                                 salary,
                                 equity,
                                 company_handle AS "company"`;
-      const result = await db.query(querySql, [...values, title]);
+      const result = await db.query(querySql, [...values, id]);
       const job = result.rows[0];
 
-      if (!job) throw new NotFoundError(`No job: ${title}`);
+      if (!job) throw new NotFoundError(`No job: ${id}`);
 
       return job;
    }
 
-   static async remove(title) {
+   static async remove(id) {
       const result = await db.query(
          `DELETE
             FROM jobs
-            WHERE title = $1
+            WHERE id = $1
             RETURNING title`,
-         [title]
+         [id]
       );
       const job = result.rows[0];
 
-      if (!job) throw new NotFoundError(`No job: ${title}`);
+      if (!job) throw new NotFoundError(`No job: ${id}`);
    }
 }
 
