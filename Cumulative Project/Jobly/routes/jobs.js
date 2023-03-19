@@ -17,9 +17,9 @@ const router = new express.Router();
 
 /** POST / { job } =>  { job }
  *
- * job should be { title, salary, equity, company_handle }
+ * job should be { id, title, salary, equity, company_handle }
  *
- * Returns { title, salary, equity, company_handle }
+ * Returns { id, title, salary, equity, company_handle }
  *
  * Authorization required: login/admin
  */
@@ -40,7 +40,7 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 });
 
 /** GET /  =>
- *   { jobs: [ { title, salary, equity, company_handle }, ...] }
+ *   { jobs: [ { id, title, salary, equity, company_handle }, ...] }
  *
  * Can filter on provided search filters:
  * - title
@@ -67,34 +67,34 @@ router.get("/", async function (req, res, next) {
    }
 });
 
-/** GET /[handle]  =>  { job }
+/** GET /[id]  =>  { job }
  *
- *  Job is { title, salary, equity, company_handle }
+ *  Job is { id, title, salary, equity, company_handle }
  *
  * Authorization required: none
  */
 
-router.get("/:title", async function (req, res, next) {
+router.get("/:id", async function (req, res, next) {
    try {
-      const job = await Job.get(req.params.title);
+      const job = await Job.get(req.params.id);
       return res.json({ job });
    } catch (err) {
       return next(err);
    }
 });
 
-/** PATCH /[title] { fld1, fld2, ... } => { job }
+/** PATCH /[id] { fld1, fld2, ... } => { job }
  *
  * Patches job data.
  *
  * fields can be: { title, salary, equity }
  *
- * Returns { title, salary, equity, company_handle }
+ * Returns { id, title, salary, equity, company_handle }
  *
  * Authorization required: login/admin
  */
 
-router.patch("/:title", ensureLoggedIn, async function (req, res, next) {
+router.patch("/:id", ensureLoggedIn, async function (req, res, next) {
    try {
       const validator = jsonschema.validate(req.body, jobUpdateSchema);
       if (!validator.valid) {
@@ -102,22 +102,22 @@ router.patch("/:title", ensureLoggedIn, async function (req, res, next) {
          throw new BadRequestError(errs);
       }
 
-      const job = await Job.update(req.params.title, req.body);
+      const job = await Job.update(req.params.id, req.body);
       return res.json({ job });
    } catch (err) {
       return next(err);
    }
 });
 
-/** DELETE /[title]  =>  { deleted: handle }
+/** DELETE /[id]  =>  { deleted: id }
  *
  * Authorization: login/admin
  */
 
-router.delete("/:title", ensureLoggedIn, async function (req, res, next) {
+router.delete("/:id", ensureLoggedIn, async function (req, res, next) {
    try {
-      await Job.remove(req.params.title);
-      return res.json({ deleted: req.params.title });
+      await Job.remove(req.params.id);
+      return res.json({ deleted: req.params.id });
    } catch (err) {
       return next(err);
    }
