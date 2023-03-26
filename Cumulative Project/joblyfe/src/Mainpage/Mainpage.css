@@ -1,57 +1,15 @@
-.card {
-   background-color: #101010d1;
-   color: #f0f2f5;
-   border: 20px solid rgba(16, 16, 16, 0.63);
-   box-shadow: inset 0 0 0 2px #ffffff;
-   box-sizing: border-box;
+.MP-Header {
+   border-bottom: 2px solid rgba(42, 49, 59, 255);
 }
 
-.card-title h3 {
+.MP-Title {
+   margin: 0;
+}
+
+.MP-Title h3 {
    font-size: 3rem;
-   margin: 2rem 0 2rem;
-   padding-bottom: 2rem;
-   border-bottom: 2px solid white;
    letter-spacing: 10px;
-}
-
-.list-group {
-   padding: 0;
-}
-
-.list-group a {
-   display: inline-block;
-   margin-top: 1rem;
-   color: white;
-   list-style: none;
-   padding: 0;
-   height: fit-content;
-   width: 45%;
-}
-
-.list-group a:not(:last-of-type) li {
-   border-bottom: none !important;
-}
-
-.list-group a:hover {
-   text-decoration: none;
-   border-left-width: 3px;
-}
-
-.list-group a:hover li {
-   margin-left: 2px;
-}
-
-.list-group-item {
-   background-color: transparent;
-   font-weight: bold;
-}
-
-.list-group-item:hover {
-   cursor: pointer;
-}
-
-.inner-border {
-   border: 20px solid #101010d1;
-   box-shadow: inset 0 0 0 10px #ffffff;
-   box-sizing: border-box;
+   text-align: center;
+   margin: 2rem 0;
+   color: rgba(42, 49, 59, 255);
 }

@@ -1,0 +1,38 @@
+.Company {
+   min-height: calc(100vh - 31px);
+   min-width: 100vw;
+   background-color: rgba(239, 238, 226, 255);
+}
+
+.Company .card {
+   min-height: calc(100vh - 31px);
+   background-color: rgba(239, 238, 226, 255);
+}
+
+.Company .card-body {
+   color: rgba(42, 49, 59, 255);
+}
+
+.Company-Heading {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+   padding: 50px;
+}
+
+.Company-Img {
+   max-width: 30%;
+}
+
+.Company-Title {
+   font-size: 3rem;
+}
+
+.Company-Desc {
+   font-size: 1.5rem;
+   padding: 0 25px;
+}
+
+.Company-JobList {
+   padding: 25px;
+}

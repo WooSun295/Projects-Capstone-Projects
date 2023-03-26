@@ -1,0 +1,24 @@
+.list-group .LC-Com-Img {
+   max-width: 45%;
+}
+
+.list-group .LC-Job {
+   border-left: 5px rgba(42, 49, 59, 255) dashed;
+   margin: 5px;
+   width: 25%;
+}
+
+.list-group .LC-Job-Title,
+.list-group .LC-Job-Desc {
+   margin: 7px 3px;
+   text-decoration: none;
+}
+
+.list-group a {
+   color: rgba(42, 49, 59, 255);
+}
+
+.list-group a:hover {
+   color: rgba(239, 238, 226, 255);
+   text-decoration: none;
+}

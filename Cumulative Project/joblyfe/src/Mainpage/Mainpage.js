@@ -1,44 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import JoblyAPI from "../API/JoblyAPI";
 import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap";
+import ListCell from "../ListCell/ListCell";
+
 import "./Mainpage.css";
 
-const Mainpage = ({ title }) => {
-   const [isLoading, setLoading] = useState(true);
-   const [datas, setDatas] = useState([]);
-   let key = "";
-   if (title === "companies") key = "handle";
-   else if (title === "users") key = "username";
-   else if (title === "jobs") key = "id";
-
-   useEffect(() => {
-      async function getAll() {
-         let datas = JoblyAPI.getAll(title);
-         setDatas(await datas);
-         setLoading(false);
-      }
-      getAll();
-   }, []);
-
-   if (isLoading) {
-      return <p>Loading &hellip;</p>;
-   }
-
+const Mainpage = ({ title, datas, id }) => {
    return (
       <div className="Mainpage">
-         <Card>
-            <CardBody>
-               <CardTitle className="font-weight-bold text-center">
+         <Card className="">
+            <CardBody className="MP-Header">
+               <CardTitle className="MP-Title">
                   <h3>{title.toUpperCase()}</h3>
                </CardTitle>
             </CardBody>
-            <CardBody>
-               <ListGroup>
+            <CardBody className="">
+               <ListGroup className="grid">
                   {datas[title].map((data) => (
-                     <Link to={`/${title}/${data[key]}`} key={data[key]}>
-                        <ListGroupItem>{data.name}</ListGroupItem>
-                     </Link>
+                     <ListCell
+                        data={data}
+                        title={title}
+                        key={data[id]}
+                        className="g-col-6"
+                     />
                   ))}
                </ListGroup>
             </CardBody>

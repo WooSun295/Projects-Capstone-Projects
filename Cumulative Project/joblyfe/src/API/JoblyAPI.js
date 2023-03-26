@@ -10,8 +10,18 @@ class JoblyAPI {
    }
 
    //getAll
-   static async getAll(title) {
-      const res = await axios.get(`${BASE_URL}/${title}`);
+   static async getAll(title, token) {
+      const res = !token
+         ? await axios.get(`${BASE_URL}/${title}`)
+         : await axios.get(`${BASE_URL}/${title}`, { headers: token });
+      return res.data;
+   }
+
+   //get
+   static async get(title, id, token) {
+      const res = !token
+         ? await axios.get(`${BASE_URL}/${title}/${id}`)
+         : await axios.get(`${BASE_URL}/${title}/${id}`, { headers: token });
       return res.data;
    }
 }

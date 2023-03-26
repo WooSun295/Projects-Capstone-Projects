@@ -1,0 +1,42 @@
+.Job {
+   min-height: calc(100vh - 31px);
+   min-width: 100vw;
+}
+
+.Company-Title-Link {
+   margin-top: 1.5rem;
+   color: #f0f2f5;
+   list-style: none;
+   padding: 0;
+   height: fit-content;
+}
+
+.Company-Title-Link:hover {
+   text-decoration: none;
+   cursor: pointer;
+}
+
+.Job .card {
+   min-height: calc(100vh - 31px);
+}
+
+.Job-Heading {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+   padding: 50px;
+}
+
+.Job-Title {
+   font-size: 3rem;
+}
+
+.Job-Desc {
+   font-size: 1.5rem;
+}
+
+.Job-Btn {
+   padding: 20px 40px;
+   color: white;
+   font-size: 1rem;
+}
