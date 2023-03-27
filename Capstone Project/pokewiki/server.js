@@ -1,7 +1,8 @@
 "use strict";
 
-const app = require("./app");
+const app = require("./backend/app");
+const { PORT } = require("./backend/config");
 
-app.listen(5000, function () {
-   console.log("Backend on localhost:5000");
+app.listen(PORT, function () {
+   console.log(`Backend on localhost:${PORT}`);
 });

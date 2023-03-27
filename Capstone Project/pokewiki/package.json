@@ -32,7 +32,7 @@
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject",
-      "start-fe": "react scripts --openssl-legacy-provider start",
+      "start-fe": "react-scripts --openssl-legacy-provider start",
       "start-be": "nodemon server.js"
    },
    "eslintConfig": {
