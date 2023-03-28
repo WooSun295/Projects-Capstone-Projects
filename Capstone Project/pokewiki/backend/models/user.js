@@ -11,6 +11,7 @@ const {
 } = require("../expressError");
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
+const Pokewiki = require("./pokewiki");
 
 /** Related functions for users. */
 
@@ -30,6 +31,7 @@ class User {
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,
+                  pfp_url AS "pfpUrl"
            FROM users
            WHERE username = $1`,
          [username]
@@ -56,7 +58,7 @@ class User {
     * Throws BadRequestError on duplicates.
     **/
 
-   static async register({ username, password, firstName, lastName, email }) {
+   static async register({ username, password, firstName, lastName, email, pfpUrl }) {
       const duplicateCheck = await db.query(
          `SELECT username
            FROM users
@@ -76,10 +78,11 @@ class User {
             password,
             first_name,
             last_name,
-            email)
+            email,
+            pfp_url)
            VALUES ($1, $2, $3, $4, $5)
-           RETURNING username, first_name AS "firstName", last_name AS "lastName", email`,
-         [username, hashedPassword, firstName, lastName, email]
+           RETURNING username, first_name AS "firstName", last_name AS "lastName", email, pfp_url AS "pfpUrl"`,
+         [username, hashedPassword, firstName, lastName, email, pfpUrl]
       );
 
       const user = result.rows[0];
@@ -94,7 +97,7 @@ class User {
     * throws BadRequestError on duplicates
     * **/
 
-   static async addFav(username, name) {
+   static async addFav(username, id) {
       const userRes = await db.query(
          `SELECT username
         FROM users
@@ -107,25 +110,80 @@ class User {
       if (!user) throw new NotFoundError(`No user: ${username}`);
 
       const duplicateCheck = await db.query(
-         `SELECT user_id, pkmn
+         `SELECT user_id, pkmn_id
        FROM favorites
-       WHERE user_id = $1 AND pkmn = $2`,
-         [username, name]
+       WHERE user_id = $1 AND pkmn_id = $2`,
+         [username, id]
       );
 
       if (duplicateCheck.rows[0]) {
          throw new BadRequestError(`Duplicate application`);
       }
       const favRes = await db.query(
-         `INSERT INTO favorites (user_id, pkmn)
+         `INSERT INTO favorites (user_id, pkmn_id)
         VALUES ($1, $2)
         RETURNING user_id`,
-         [username, name]
+         [username, id]
       );
 
       if (!favRes) throw new ServerDownError();
 
-      return name;
+      return id;
+   }
+
+   static async getAllFav(username) {
+      const userRes = await db.query(
+         `SELECT username
+         FROM users
+         WHERE username = $1`,
+         [username]
+      );
+
+      const user = userRes.rows[0];
+
+      if (!user) throw new NotFoundError(`No user: ${username}`);
+
+      const favsRes = await db.query(
+         `SELECT pkmn_id
+         FROM favorites
+         WHERE user_id = $1`,
+         [user.username]
+      );
+
+      const favs = await Promise.all(
+         favsRes.rows.map(async (id) => {
+            return Pokewiki.get("pokemon", id.pkmn_id, true);
+         })
+      );
+
+      return favs;
+   }
+
+   static async removeFav(username, id) {
+      const userRes = await db.query(
+         `SELECT username
+        FROM users
+        WHERE username = $1`,
+         [username]
+      );
+
+      const user = userRes.rows[0];
+
+      if (!user) throw new NotFoundError(`No user: ${username}`);
+
+      const result = await db.query(
+         `DELETE 
+            FROM favorites
+            WHERE user_id = $1 AND pkmn_id = $2
+            RETURNING user_id`,
+         [username, id]
+      );
+
+      const fav = result.rows[0];
+
+      if (!fav) throw new NotFoundError(`No favorited pokemon of id ${id}`);
+
+      return id;
    }
 
    /** Given a username, return data about user.
@@ -142,6 +200,7 @@ class User {
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,
+                  pfp_url AS "pfpUrl"
            FROM users
            WHERE username = $1`,
          [username]
@@ -152,7 +211,7 @@ class User {
       if (!user) throw new NotFoundError(`No user: ${username}`);
 
       const favRes = await db.query(
-         `SELECT pkmn
+         `SELECT pkmn_id
           FROM favorites
           WHERE user_id = $1`,
          [user.username]
@@ -193,6 +252,7 @@ class User {
          firstName: "first_name",
          lastName: "last_name",
          email: "email",
+         pfpUrl: "pfp_url",
       });
       const usernameVarIdx = "$" + (values.length + 1);
 
@@ -202,7 +262,8 @@ class User {
                       RETURNING username,
                                 first_name AS "firstName",
                                 last_name AS "lastName",
-                                email`;
+                                email,
+                                pfp_url AS "pfpUrl"`;
       const result = await db.query(querySql, [...values, username]);
       const user = result.rows[0];
 

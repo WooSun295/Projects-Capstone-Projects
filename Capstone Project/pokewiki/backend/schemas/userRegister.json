@@ -28,6 +28,10 @@
          "minLength": 6,
          "maxLength": 60,
          "format": "email"
+      },
+      "pfpUrl": {
+         "type": "string",
+         "format": "uri"
       }
    },
    "additionalProperties": false,

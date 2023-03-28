@@ -14,7 +14,7 @@ const router = express.Router();
 
 /** GET /[username] => { user }
  *
- * Returns { username, firstName, lastName, isAdmin }
+ * Returns { username, firstName, lastName, email, pfpUrl }
  *
  * Authorization required: login
  **/
@@ -28,18 +28,38 @@ router.get("/:username", ensureLoggedIn, async function (req, res, next) {
    }
 });
 
-/** POST /[username]/jobs/[id] => {applied: [id]}
+/** POST /[username]/favs/[id] => {added: [id]}
  *
- * Returns {applied: id}
+ * Returns {added: id}
  *
  * Authorization required: login
  * **/
 
-router.post("/:username/favs/:pkmn", ensureLoggedIn, async function (req, res, next) {
+router.post("/:username/favs/:id", ensureLoggedIn, async function (req, res, next) {
    try {
-      const { username, pkmn } = req.params;
-      const applied = await User.addFav(username, pkmn);
-      return res.json({ applied });
+      const { username, id } = req.params;
+      const added = await User.addFav(username, id);
+      return res.json({ added });
+   } catch (err) {
+      return next(err);
+   }
+});
+
+router.get("/:username/favs/", ensureLoggedIn, async function (req, res, next) {
+   try {
+      const { username } = req.params;
+      const favorites = await User.getAllFav(username);
+      return res.json({ username, favorites });
+   } catch (err) {
+      return next(err);
+   }
+});
+
+router.delete("/:username/favs/:id", ensureLoggedIn, async function (req, res, next) {
+   try {
+      const { username, id } = req.params;
+      await User.removeFav(username, id);
+      return res.json({ deleted: id });
    } catch (err) {
       return next(err);
    }
@@ -48,9 +68,9 @@ router.post("/:username/favs/:pkmn", ensureLoggedIn, async function (req, res, n
 /** PATCH /[username] { user } => { user }
  *
  * Data can include:
- *   { firstName, lastName, password, email }
+ *   { firstName, lastName, password, email, pfpUrl }
  *
- * Returns { username, firstName, lastName, email, isAdmin }
+ * Returns { username, firstName, lastName, email, pfpUrl }
  *
  * Authorization required: login
  **/

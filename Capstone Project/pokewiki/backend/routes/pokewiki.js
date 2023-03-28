@@ -5,83 +5,60 @@
 const jsonschema = require("jsonschema");
 const express = require("express");
 
-const { BadRequestError } = require("../expressError");
+const { BadRequestError, NotFoundError } = require("../expressError");
 const { ensureLoggedIn } = require("../middleware/auth");
 const Pokewiki = require("../models/pokewiki");
+const pluralize = require("../helpers/pluralize");
 
 const router = new express.Router();
 
-/** GET /  =>
- *   { pokemons: [ { id, name, sprites }, ...] }
+/** GET /[category]  =>
  *
+ * if category is pokemon
+ *   { pokemons: [ { id, name, imgUrl }, ...] }
+ *
+ * if category is ability
+ *   { abilities: [ { id, name }, ...] }
+ *
+ * if category is berry
+ *   { berries: [ { id, name }, ...] }
+ *
+ * if category is item
+ *   { items: [ { id, name, imgUrl }, ...] }
  *
  *   Authorization required: none
  */
 
-router.get("/", async function (req, res, next) {
+router.get("/:category", async function (req, res, next) {
    try {
-      const pokemons = await Pokewiki.getAll();
+      const { category } = req.params;
 
-      console.log(await pokemons);
+      if (!["pokemon", "ability", "berry", "item"].includes(category)) next();
 
-      return res.json({ pokemons });
+      const result = await Pokewiki.getAll(category);
+
+      return res.json({ [pluralize(category)]: result });
    } catch (err) {
       return next(err);
    }
 });
 
-/** GET /[handle]  =>  { company }
+/** GET /[category]/[id]  =>  { category }
  *
- *  Company is { handle, name, description, numEmployees, logoUrl, jobs }
- *   where jobs is [{ id, title, salary, equity }, ...]
+ *  category is { whole object from PokeApi }
  *
  * Authorization required: none
  */
 
-router.get("/:handle", async function (req, res, next) {
+router.get("/:category/:id", async function (req, res, next) {
    try {
-      const company = await Company.get(req.params.handle);
-      return res.json({ company });
-   } catch (err) {
-      return next(err);
-   }
-});
+      const { category, id } = req.params;
 
-/** PATCH /[handle] { fld1, fld2, ... } => { company }
- *
- * Patches company data.
- *
- * fields can be: { name, description, numEmployees, logo_url }
- *
- * Returns { handle, name, description, numEmployees, logo_url }
- *
- * Authorization required: login
- */
+      if (!["pokemon", "ability", "berry", "item"].includes(category)) next();
 
-router.patch("/:handle", ensureLoggedIn, async function (req, res, next) {
-   try {
-      const validator = jsonschema.validate(req.body, companyUpdateSchema);
-      if (!validator.valid) {
-         const errs = validator.errors.map((e) => e.stack);
-         throw new BadRequestError(errs);
-      }
+      const result = await Pokewiki.get(category, id);
 
-      const company = await Company.update(req.params.handle, req.body);
-      return res.json({ company });
-   } catch (err) {
-      return next(err);
-   }
-});
-
-/** DELETE /[handle]  =>  { deleted: handle }
- *
- * Authorization: login
- */
-
-router.delete("/:handle", ensureLoggedIn, async function (req, res, next) {
-   try {
-      await Company.remove(req.params.handle);
-      return res.json({ deleted: req.params.handle });
+      return res.json({ [category]: result });
    } catch (err) {
       return next(err);
    }

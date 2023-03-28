@@ -1,0 +1,33 @@
+.Navbar-logo-img {
+   width: 50px;
+}
+
+.Navbar a,
+.Navbar {
+   display: flex;
+   height: 50px;
+   align-items: center;
+   margin: 0 10px;
+   text-decoration: none;
+   color: black;
+}
+
+.Navbar a:hover:not(.active) {
+   text-decoration: underline wavy goldenrod;
+}
+
+.Navbar {
+   margin: 0;
+   padding-bottom: 5px;
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+}
+
+.last-left {
+   flex-grow: 1;
+}
+
+.Navbar {
+   display: flex;
+   justify-content: left;
+}

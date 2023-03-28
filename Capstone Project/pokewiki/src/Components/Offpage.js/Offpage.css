@@ -1,0 +1,11 @@
+.Offpage-Title {
+   text-align: center;
+   font-size: 3rem;
+   margin: 0 2rem 2rem;
+   padding-top: 2rem;
+}
+
+.Offpage-Header {
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+}

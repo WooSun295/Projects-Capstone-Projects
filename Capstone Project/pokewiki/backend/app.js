@@ -25,16 +25,17 @@ app.use("/pokewiki", pokewikiRoutes);
 
 // 404 errors, if nothing matches
 app.use((req, res, next) => {
+   console.log("inside 404 match");
    return next(new NotFoundError());
 });
 
 // Error handler
 app.use((err, req, res, next) => {
-   const stus = err.status || 500;
+   const status = err.status || 500;
    const msg = err.message;
 
-   return res.status(stus).json({
-      error: { msg, stus },
+   return res.status(status).json({
+      error: { msg, status },
    });
 });
 
