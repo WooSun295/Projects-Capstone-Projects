@@ -25,7 +25,6 @@ app.use("/pokewiki", pokewikiRoutes);
 
 // 404 errors, if nothing matches
 app.use((req, res, next) => {
-   console.log("inside 404 match");
    return next(new NotFoundError());
 });
 

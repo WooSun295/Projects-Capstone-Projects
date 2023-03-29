@@ -40,20 +40,6 @@ class Pokewiki {
       return results;
    }
 
-   static async filterBy(filter) {
-      const companiesRes = await db.query(
-         `SELECT handle,
-                  name,
-                  description,
-                  num_employees AS "numEmployees",
-                  logo_url AS "logoUrl"
-           FROM companies
-           WHERE ${filter}
-           ORDER BY name`
-      );
-      return companiesRes.rows;
-   }
-
    /** Given a category and id, return data about the category.
     *
     * Returns { whole obj from PokeApi }

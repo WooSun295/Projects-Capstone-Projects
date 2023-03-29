@@ -11,4 +11,4 @@ const pluralize = (str) => {
    }
 };
 
-module.exports = pluralize;
+export default pluralize;

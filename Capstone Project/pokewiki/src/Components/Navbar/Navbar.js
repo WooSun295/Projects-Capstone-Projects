@@ -21,10 +21,11 @@ const Navbar = ({ user }) => {
          <p>|</p>
          <NavLink to="/berry">Berry</NavLink>
          <p className="last-left">|</p>
-         {user.username ? (
-            <NavLink to={`/${user.username}`}>
-               <img src={user.pfpUrl} alt="pfp" />
-            </NavLink>
+         {user ? (
+            // <NavLink to={`/${user.username}`}>
+            //    <img src={user.pfpUrl} alt="pfp" />
+            // </NavLink>
+            <NavLink to="/">SignedIn</NavLink>
          ) : (
             <NavLink to="/login">Login/SignUp</NavLink>
          )}

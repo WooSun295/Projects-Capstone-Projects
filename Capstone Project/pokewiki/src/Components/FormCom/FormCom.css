@@ -1,0 +1,42 @@
+.FC-Title {
+   text-align: center;
+   font-size: 3rem;
+   margin: 0 2rem 2rem;
+   padding-top: 2rem;
+}
+
+.FC-Header {
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+}
+
+.FC-Body {
+   padding: 10px;
+   margin-top: 5%;
+   background-color: #f6f6f6;
+}
+
+.FC-Form {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 90%;
+   row-gap: 10px;
+}
+
+.FC-Label {
+   margin-right: 10px;
+   font-size: 20px;
+}
+
+.FC-Input {
+   padding: 5px;
+   border-radius: 8px;
+}
+
+.FC-Btn {
+   padding: 10px 20px;
+   font-size: 18px;
+   background-color: #f6f6f6;
+   border-radius: 8px;
+}

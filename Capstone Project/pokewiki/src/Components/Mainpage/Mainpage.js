@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap";
 
 import pluralize from "../..//helpers/pluralize";
-import Offpage from "../Offpage.js/Offpage";
+import Offpage from "../Offpage/Offpage";
 import PokeWikiAPI from "../../helpers/backend";
 
 import "./Mainpage.css";
