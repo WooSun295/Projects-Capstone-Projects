@@ -3,10 +3,10 @@
 /** Routes for users. */
 
 const jsonschema = require("jsonschema");
-
 const express = require("express");
-const { ensureLoggedIn } = require("../middleware/auth");
+
 const { BadRequestError } = require("../expressError");
+const { ensureLoggedIn } = require("../middleware/auth");
 const User = require("../models/user");
 const userUpdateSchema = require("../schemas/userUpdate.json");
 
@@ -45,7 +45,7 @@ router.post("/:username/favs/:id", ensureLoggedIn, async function (req, res, nex
    }
 });
 
-router.get("/:username/favs/", ensureLoggedIn, async function (req, res, next) {
+router.get("/:username/favs", ensureLoggedIn, async function (req, res, next) {
    try {
       const { username } = req.params;
       const favorites = await User.getAllFav(username);

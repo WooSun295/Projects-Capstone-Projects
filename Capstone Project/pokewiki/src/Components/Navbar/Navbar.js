@@ -2,10 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import smallLogo from "../../SmallLogo.png";
+import decodeToken from "../../helpers/decodeToken";
 
 import "./Navbar.css";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ userToken }) => {
+   let token;
+   if (userToken) {
+      token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
+   }
+
    return (
       <nav className="Navbar">
          <NavLink to="/" className="Navbar-logo">
@@ -21,11 +27,11 @@ const Navbar = ({ user }) => {
          <p>|</p>
          <NavLink to="/berry">Berry</NavLink>
          <p className="last-left">|</p>
-         {user ? (
-            // <NavLink to={`/${user.username}`}>
-            //    <img src={user.pfpUrl} alt="pfp" />
-            // </NavLink>
-            <NavLink to="/">SignedIn</NavLink>
+         {userToken ? (
+            <NavLink to={`/user/${decodeToken(token).username}`}>
+               <p className="Navbar-uname">{decodeToken(token).username}</p>
+               <img src={decodeToken(token).pfpUrl} alt="pfp" className="Navbar-pfp" />
+            </NavLink>
          ) : (
             <NavLink to="/login">Login/SignUp</NavLink>
          )}

@@ -1,0 +1,68 @@
+.UP-Title {
+   font-size: 3rem;
+   margin: 0;
+   margin-bottom: 0.5rem;
+}
+
+.UP-Header {
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+   padding: 3rem;
+}
+
+.UP-Header-Texts,
+.UP-Title {
+   text-align: right;
+}
+
+.UP-Username {
+   font-size: 20px;
+   color: grey;
+}
+
+.UP-Email {
+   margin: 0;
+   font-size: 15px;
+   color: grey;
+}
+
+.UP-pfpimg {
+   max-width: 250px;
+}
+
+.UP-Header div.card-title {
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+}
+
+.UP-Btn {
+   margin-top: 1.5rem;
+   padding: 7px 18px;
+   font-size: 14px;
+   border-radius: 10px;
+   border: 2px solid black;
+   background: #f6f6f6;
+}
+
+.Update,
+.Signout {
+   margin-right: 10px;
+}
+
+.Update:hover {
+   border: 2px solid goldenrod;
+   cursor: pointer;
+}
+
+.Signout:hover {
+   border: 2px solid red;
+   cursor: pointer;
+}
+
+.Delete:hover {
+   color: #f6f6f6;
+   background: red;
+   border: 2px solid red;
+   cursor: pointer;
+}

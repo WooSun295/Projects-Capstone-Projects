@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Card, CardBody, CardTitle } from "reactstrap";
 import { Form, Label, Input, Button } from "reactstrap";
-import capitalize from "../../helpers/capitalize";
+import fixString from "../../helpers/fixStrings";
 import PokeWikiAPI from "../../helpers/backend";
 
 import "./FormCom.css";
 
-const FormCom = ({ formFields, title, addToken }) => {
+const FormCom = ({ formFields, addToken, changeForm, title }) => {
    const [formData, setFormData] = useState(formFields);
    const history = useHistory();
 
@@ -18,7 +18,7 @@ const FormCom = ({ formFields, title, addToken }) => {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const token = await PokeWikiAPI.user(formData);
+      const token = await PokeWikiAPI.userPost(formData);
       addToken(token);
       history.push("/");
    };
@@ -28,18 +28,19 @@ const FormCom = ({ formFields, title, addToken }) => {
          <Card>
             <CardBody className="FC-Header">
                <CardTitle>
-                  <h3 className="FC-Title">{title}</h3>
+                  <h3 className="FC-Title">{title.toUpperCase()}</h3>
                </CardTitle>
             </CardBody>
          </Card>
+
          <Card>
             <CardBody className="FC-Body">
                <Form onSubmit={handleSubmit} className="FC-Form">
                   {Object.keys(formData).map((field) => {
                      if (field === "pfpUrl") {
                         return (
-                           <div className="FC-Div">
-                              <Label htmlFor={field} key={field} className="FC-Label">
+                           <div className="FC-Div" key={field}>
+                              <Label htmlFor={field} className="FC-Label">
                                  Profile Img:
                               </Label>
                               <Input
@@ -55,9 +56,9 @@ const FormCom = ({ formFields, title, addToken }) => {
                         );
                      } else if (field === "password" || field === "email") {
                         return (
-                           <div className="FC-Div">
-                              <Label htmlFor={field} key={field} className="FC-Label">
-                                 {capitalize(field)}:
+                           <div className="FC-Div" key={field}>
+                              <Label htmlFor={field} className="FC-Label">
+                                 {fixString(field)}:
                               </Label>
                               <Input
                                  id={field}
@@ -72,9 +73,9 @@ const FormCom = ({ formFields, title, addToken }) => {
                         );
                      } else {
                         return (
-                           <div className="FC-Div">
-                              <Label htmlFor={field} key={field} className="FC-Label">
-                                 {capitalize(field)}:
+                           <div className="FC-Div" key={field}>
+                              <Label htmlFor={field} className="FC-Label">
+                                 {fixString(field)}:
                               </Label>
                               <Input
                                  id={field}
@@ -91,6 +92,15 @@ const FormCom = ({ formFields, title, addToken }) => {
                   })}
                   <Button className="FC-Btn">Submit</Button>
                </Form>
+               {changeForm && title === "login" ? (
+                  <Link to="/signup" onClick={() => changeForm("signup")}>
+                     Don't have an account? Signup
+                  </Link>
+               ) : (
+                  <Link to="/login" onClick={() => changeForm("login")}>
+                     Already have an account? Login
+                  </Link>
+               )}
             </CardBody>
          </Card>
       </div>

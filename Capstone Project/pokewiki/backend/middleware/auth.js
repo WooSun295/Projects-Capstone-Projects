@@ -6,10 +6,10 @@ const { UnauthorizedError } = require("../expressError");
 
 const authenticateJWT = (req, res, next) => {
    try {
-      const token = req.body._token;
-      if (token) {
+      const authHeader = req.headers && req.headers.authorization;
+      if (authHeader) {
+         const token = authHeader.replace(/^[Bb]earer /, "").trim();
          res.locals.user = jwt.verify(token, SECRET_KEY);
-         console.log(`Token: ${token}, Username: ${res.locals.user.username}`);
       }
       return next();
    } catch (err) {

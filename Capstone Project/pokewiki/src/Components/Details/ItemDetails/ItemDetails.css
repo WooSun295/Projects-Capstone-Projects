@@ -1,0 +1,20 @@
+.IDP-Title {
+   text-align: center;
+   font-size: 3rem;
+   margin: 0 2rem 2rem;
+   padding-top: 2rem;
+}
+
+.IDP-Header {
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+   text-align: center;
+}
+
+.IDP-Body {
+   background-color: #f6f6f6;
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   align-items: center;
+}

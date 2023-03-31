@@ -1,12 +1,9 @@
 "use strict";
 
-/** Routes for companies. */
+/** Routes for pokewiki. */
 
-const jsonschema = require("jsonschema");
 const express = require("express");
 
-const { BadRequestError, NotFoundError } = require("../expressError");
-const { ensureLoggedIn } = require("../middleware/auth");
 const Pokewiki = require("../models/pokewiki");
 const pluralize = require("../helpers/pluralize");
 

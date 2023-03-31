@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /backend/config.js
+/src/config.js
 TodoList.txt
 
 # testing

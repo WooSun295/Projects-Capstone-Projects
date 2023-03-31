@@ -5,6 +5,7 @@ import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap"
 import pluralize from "../..//helpers/pluralize";
 import Offpage from "../Offpage/Offpage";
 import PokeWikiAPI from "../../helpers/backend";
+import fixString from "../../helpers/fixStrings";
 
 import "./Mainpage.css";
 
@@ -15,7 +16,7 @@ const Mainpage = ({ title }) => {
    useEffect(() => {
       setLoading(true);
       const getData = async () => {
-         let data = await PokeWikiAPI.getAll(title);
+         let data = await PokeWikiAPI.pokeGet(title);
          setData(data[pluralize(title)]);
          setLoading(false);
       };
@@ -44,10 +45,10 @@ const Mainpage = ({ title }) => {
                                     alt={d.name}
                                     className={`${title}-img`}
                                  />
-                                 <p className={`${title}-p`}>{d.name}</p>
+                                 <p className={`${title}-p`}>{fixString(d.name)}</p>
                               </>
                            ) : (
-                              <p className={`no-img ${title}-p`}>{d.name}</p>
+                              <p className={`no-img ${title}-p`}>{fixString(d.name)}</p>
                            )}
                         </Link>
                      </ListGroupItem>

@@ -14,7 +14,7 @@
    padding: 10px;
 }
 
-ul {
+.Mainpage-Body ul {
    display: flex;
    flex-wrap: wrap;
    justify-content: space-evenly;
@@ -23,7 +23,7 @@ ul {
    margin: 0;
 }
 
-li {
+.Mainpage-Body li {
    display: flex;
    justify-content: center;
    border: 1px solid black;
@@ -32,18 +32,18 @@ li {
    margin: 5px 5px;
 }
 
-li a {
+.Mainpage-Body li a {
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
    text-decoration: none;
 }
 
-li a:hover {
+.Mainpage-Body li a:hover {
    text-decoration: underline wavy goldenrod;
 }
 
-li p {
+.Mainpage-Body li p {
    display: inline-block;
    text-align: center;
    margin: 0;
@@ -53,7 +53,7 @@ li p {
    font-weight: bold;
 }
 
-a > p.no-img {
+.Mainpage-Body a > p.no-img {
    display: flex;
    align-items: center;
    justify-content: center;

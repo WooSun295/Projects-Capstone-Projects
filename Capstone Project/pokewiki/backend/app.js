@@ -22,6 +22,40 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/pokewiki", pokewikiRoutes);
+app.get("/", (req, res) => {
+   return res.json({
+      defined_routes: {
+         auth: {
+            main: "/auth",
+            restrictions: "none",
+            routes: {
+               1: "POST /login",
+               2: "POST /signup",
+            },
+         },
+         users: {
+            main: "/users",
+            restrictions: "User Token",
+            routes: {
+               1: "GET /:username",
+               2: "POST /:username/favs/:id",
+               3: "GET /:username/favs",
+               4: "DELETE /:username/favs/:id",
+               5: "PATCH /:username",
+               6: "DELETE /:username",
+            },
+         },
+         pokewiki: {
+            main: "/pokewiki",
+            restrictions: "none",
+            routes: {
+               1: "GET /:category",
+               2: "GET /:category/:id",
+            },
+         },
+      },
+   });
+});
 
 // 404 errors, if nothing matches
 app.use((req, res, next) => {

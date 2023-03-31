@@ -1,0 +1,37 @@
+.PDP-Title {
+   text-align: center;
+   font-size: 3rem;
+   margin: 0 2rem 2rem;
+   padding-top: 2rem;
+}
+
+.PDP-Header {
+   border-bottom: 2px solid black;
+   background-color: #f6f6f6;
+   text-align: center;
+}
+
+.PDP-DexId {
+   font-size: 15px;
+}
+
+.PDP-Body {
+   background-color: #f6f6f6;
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.Pkmn-Img {
+   min-width: 200px;
+}
+
+.Pkmn-Data {
+   text-align: center;
+}
+
+.Pkmn-Data ul {
+   list-style: none;
+   padding: 0;
+}

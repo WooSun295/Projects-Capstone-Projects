@@ -2,6 +2,15 @@
    width: 50px;
 }
 
+p.Navbar-uname {
+   margin-right: 5px;
+}
+
+img.Navbar-pfp {
+   width: 50px;
+   border-radius: 50%;
+}
+
 .Navbar a,
 .Navbar {
    display: flex;

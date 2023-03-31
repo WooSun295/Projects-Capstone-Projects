@@ -1,14 +1,15 @@
 "use strict";
 
 const jsonschema = require("jsonschema");
-
-const User = require("../models/user");
 const express = require("express");
-const router = new express.Router();
+
+const { BadRequestError } = require("../expressError");
+const User = require("../models/user");
 const { createToken } = require("../helpers/tokens");
 const userAuthSchema = require("../schemas/userAuth.json");
 const userRegisterSchema = require("../schemas/userRegister.json");
-const { BadRequestError } = require("../expressError");
+
+const router = new express.Router();
 
 router.post("/login", async function (req, res, next) {
    try {

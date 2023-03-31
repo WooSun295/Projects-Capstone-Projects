@@ -1,19 +1,28 @@
+.FormComponent {
+   margin: 10% 20% 0;
+}
+
 .FC-Title {
    text-align: center;
    font-size: 3rem;
    margin: 0 2rem 2rem;
    padding-top: 2rem;
+   color: black;
 }
 
 .FC-Header {
+   color: black;
    border-bottom: 2px solid black;
    background-color: #f6f6f6;
+   border-top-right-radius: 20px;
+   border-top-left-radius: 20px;
 }
 
 .FC-Body {
-   padding: 10px;
-   margin-top: 5%;
+   padding: 8% 2%;
    background-color: #f6f6f6;
+   border-bottom-left-radius: 20px;
+   border-bottom-right-radius: 20px;
 }
 
 .FC-Form {
@@ -39,4 +48,14 @@
    font-size: 18px;
    background-color: #f6f6f6;
    border-radius: 8px;
+   margin-top: 50px;
+}
+
+.FC-Body a {
+   text-decoration: none;
+   color: black;
+}
+
+.FC-Body a:hover {
+   text-decoration: underline wavy goldenrod;
 }
