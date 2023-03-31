@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This app primarily uses PokeApi for all the information on pokemons and uses postgreSQL for user data and favorited pokemons
+This app primarily uses [PokeApi](https://pokeapi.co/) for all the information on pokemons and uses postgreSQL for user data and favorited pokemons
 
 ## Starting the App
 
