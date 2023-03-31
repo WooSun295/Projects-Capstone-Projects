@@ -2,69 +2,41 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This app primarily uses PokeApi for all the information on pokemons and uses postgreSQL for user data and favorited pokemons
 
-In the project directory, you can run:
+## Starting the App
 
-### `npm start`
+In the project directory, run:
+
+### `npm start` starts both the Front End and Back End servers
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Front End on [http://localhost:3000](http://localhost:3000)
+Back End on [http://localhost:5000](http://localhost:5000)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `npm run start-fe` starts the Front End
 
-### `npm test`
+### `npm run start-be` starts the Back End
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Notes
 
-### `npm run build`
+### Config.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Must create a config.js files in both the backend and src folders. - Inside /backend/config.js, contains: - Secret Key to bcrypt user's passwords - Which port to run the backend servers on - Bcrypt work factor - Inside /src/config.js - Secret Key to bcrypt user's passwords
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## BackEnd
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Routes
 
-### `npm run eject`
+`/`: Gives a general overview on all the routes and what they do
+`/pokewiki` - `/pokewiki/:category`: Retrieves all elements from the specified categories. Implemented [pokemon, ability, item, berry] - `/pokewiki/:category/:id`: Retrieves a specified element from the specified category by its id. Implemented [pokemon, ability, item, berry]
+`/auth` - `/auth/login`: Logs in a user and returns their token - `/auth/signup`: Signs up a user and returns their token
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`/users` (all routes in `/users` require token to be passed in as headers : {authorization: Bearer {token}}) - `/:username`: Get info on user, update info on user, delete user from db - `/:username/favs`: Gets user's favorited pokemon(s) - `/:username/favs/:id`: Post user's favorited pokemon, delete user's favorited pokemon
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## FrontEnd
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Routes
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`/`: General blank welcome page, navbar is always present
+`/[pokemon, ability, item, berry]`: Shows a list, with pictures of applicable, of all things in the category
