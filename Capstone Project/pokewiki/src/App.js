@@ -11,8 +11,11 @@ import Homepage from "./Components/Homepage/Homepage";
 import LogSign from "./Components/login-signup/LogSign";
 import UserDetails from "./Components/Details/UserDetails/UserDetails";
 
-import "./App.css";
 import PokeWikiAPI from "./helpers/backend";
+import { login, signup, update } from "./Components/FormCom/formFields";
+
+import "./App.css";
+import FormCom from "./Components/FormCom/FormCom";
 
 function App() {
    const [userToken, setUserToken] = useState(localStorage.getItem("token"));
@@ -45,10 +48,10 @@ function App() {
 
                   {/* Pokemon routes */}
                   <Route exact path="/pokemon">
-                     <Mainpage title="pokemon" />
+                     <Mainpage title="pokemon" userToken={userToken} />
                   </Route>
                   <Route exact path="/pokemon/:id">
-                     <PkmnDetails />
+                     <PkmnDetails userToken={userToken} />
                   </Route>
 
                   {/* Aility routes */}
@@ -77,10 +80,20 @@ function App() {
 
                   {/* Auth Routes */}
                   <Route exact path="/login">
-                     <LogSign title="login" addToken={addToken} />
+                     <FormCom
+                        formFields={login}
+                        addToken={addToken}
+                        title="login"
+                        changeForm={true}
+                     />
                   </Route>
                   <Route exact path="/signup">
-                     <LogSign title="signup" addToken={addToken} />
+                     <FormCom
+                        formFields={signup}
+                        addToken={addToken}
+                        title="signup"
+                        changeForm={true}
+                     />
                   </Route>
 
                   {/* User Routes */}
@@ -89,6 +102,15 @@ function App() {
                         userToken={userToken}
                         signout={removeToken}
                         deleteUser={deleteUser}
+                     />
+                  </Route>
+                  <Route exact path="/user/:username/update">
+                     <FormCom
+                        formFields={update}
+                        addToken={addToken}
+                        title="user-update"
+                        changeForm={false}
+                        token={userToken}
                      />
                   </Route>
                   <Redirect to="/" />

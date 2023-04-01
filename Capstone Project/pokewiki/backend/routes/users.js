@@ -9,6 +9,7 @@ const { BadRequestError } = require("../expressError");
 const { ensureLoggedIn } = require("../middleware/auth");
 const User = require("../models/user");
 const userUpdateSchema = require("../schemas/userUpdate.json");
+const { createToken } = require("../helpers/tokens");
 
 const router = express.Router();
 
@@ -84,7 +85,9 @@ router.patch("/:username", ensureLoggedIn, async function (req, res, next) {
       }
 
       const user = await User.update(req.params.username, req.body);
-      return res.json({ user });
+      const _token = createToken(user);
+      console.log(_token);
+      return res.json({ _token });
    } catch (err) {
       return next(err);
    }

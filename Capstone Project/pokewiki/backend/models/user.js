@@ -217,9 +217,11 @@ class User {
          [user.username]
       );
 
-      let pkmns = favRes.rows.map((obj) => {
-         return obj.pkmn;
-      });
+      let pkmns = await Promise.all(
+         favRes.rows.map(async (id) => {
+            return Pokewiki.get("pokemon", id.pkmn_id, true);
+         })
+      );
 
       user.favs = pkmns;
 

@@ -1,7 +1,11 @@
+.Pokemon-Details-Page {
+   margin: 0 40px;
+}
+
 .PDP-Title {
    text-align: center;
    font-size: 3rem;
-   margin: 0 2rem 2rem;
+   margin: 40px 2rem 2rem;
    padding-top: 2rem;
 }
 
@@ -9,6 +13,12 @@
    border-bottom: 2px solid black;
    background-color: #f6f6f6;
    text-align: center;
+}
+
+.PDP-Favorite {
+   display: inline-block;
+   margin-right: 2px;
+   margin: 0;
 }
 
 .PDP-DexId {
@@ -27,6 +37,15 @@
    min-width: 200px;
 }
 
+.Ability-Link {
+   text-decoration: none;
+   color: black;
+}
+
+li a.Ability-Link:hover {
+   text-decoration: underline wavy goldenrod;
+}
+
 .Pkmn-Data {
    text-align: center;
 }
@@ -34,4 +53,50 @@
 .Pkmn-Data ul {
    list-style: none;
    padding: 0;
+}
+
+.Pkmn-Btn {
+   display: inline-block;
+   position: relative;
+   bottom: 86px;
+   padding: 7px 10px;
+   font-weight: bold;
+}
+
+.RemoveF {
+   background-color: #f6f6f6;
+   border: 2px solid rgb(200, 0, 0);
+   border-top: 2px solid black;
+}
+
+.RemoveF:hover {
+   background-color: rgb(200, 0, 0);
+   border-color: rgb(200, 0, 0);
+   color: #f6f6f6;
+}
+
+.AddF {
+   background-color: #f6f6f6;
+   border: 2px solid goldenrod;
+   border-top: 2px solid black;
+}
+
+.AddF:hover {
+   background-color: goldenrod;
+   color: #f6f6f6;
+}
+
+.Pkmn-Data table {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 100px;
+}
+
+.Pkmn-Data tbody {
+   border: 1px solid black;
+}
+
+.Pkmn-Data table td {
+   width: 90px;
+   border: 1px solid black;
 }

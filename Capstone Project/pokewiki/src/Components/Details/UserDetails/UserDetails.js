@@ -19,7 +19,7 @@ const UserDetails = ({ userToken, signout, deleteUser }) => {
    useEffect(() => {
       setIsLoading(true);
       const getData = async () => {
-         let data = await PokeWikiAPI.userGet(username, token);
+         let data = await PokeWikiAPI.userGet(token);
          setUserInfo(data.user);
          setIsLoading(false);
       };
@@ -41,7 +41,9 @@ const UserDetails = ({ userToken, signout, deleteUser }) => {
 
                      <small className="UP-Username">@{userInfo.username}</small>
                      <p className="UP-Email">{userInfo.email}</p>
-                     <button className="UP-Btn Update">Update</button>
+                     <Link to={`/user/${userInfo.username}/update`}>
+                        <button className="UP-Btn Update">Update</button>
+                     </Link>
                      <Link to="/">
                         <button className="UP-Btn Signout" onClick={signout}>
                            Sign Out

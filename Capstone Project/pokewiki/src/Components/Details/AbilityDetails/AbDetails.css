@@ -1,7 +1,11 @@
+.Ability-Details-Page {
+   margin: 0 40px;
+}
+
 .ADP-Title {
    text-align: center;
    font-size: 3rem;
-   margin: 0 2rem 2rem;
+   margin: 40px 2rem 2rem;
    padding-top: 2rem;
 }
 

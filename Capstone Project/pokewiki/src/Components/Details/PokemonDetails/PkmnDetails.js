@@ -11,10 +11,14 @@ import extractId from "../../../helpers/extractId";
 
 import "./PkmnDetails.css";
 
-const PkmnDetails = () => {
+const PkmnDetails = ({ userToken }) => {
    const { id } = useParams();
-   const [pkmnData, setPkmnData] = useState();
+   const [pkmnData, setPkmnData] = useState([]);
+   const [favPkmn, setFavs] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
+   const [reload, setReload] = useState(false);
+   const [removeFav, setRemove] = useState(false);
+   let isFav;
 
    useEffect(() => {
       const getData = async () => {
@@ -26,30 +30,80 @@ const PkmnDetails = () => {
       getData();
    }, [id]);
 
+   useEffect(() => {
+      const getFav = async () => {
+         setIsLoading(true);
+         let token;
+         if (userToken) {
+            token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
+            if (reload) {
+               removeFav
+                  ? await PokeWikiAPI.userDelete(token, id)
+                  : await PokeWikiAPI.userPost(null, token, id);
+            }
+            let favs = await PokeWikiAPI.userGet(token, true);
+            setFavs(favs.favorites);
+         }
+
+         setIsLoading(false);
+      };
+      getFav();
+   }, [reload]);
+
+   const toggleFav = (bool) => {
+      setRemove(bool);
+      setReload(true);
+   };
+
    if (isLoading) return <Offpage msg="Loading &hellip;" />;
+   else {
+      isFav = favPkmn.some((fav) => {
+         return fav.id === pkmnData.id;
+      });
+   }
 
    return (
       <div className="Pokemon-Details-Page">
          <Card>
             <CardBody className="PDP-Header">
                <CardTitle>
-                  <h1 className="PDP-Title">{fixString(pkmnData.name)}</h1>
+                  <h1 className="PDP-Title">
+                     {isFav && <p className="PDP-Favorite">&#11088;</p>}
+                     {fixString(pkmnData.name)}
+                  </h1>
                   <small className="PDP-DexId">Dex Id: {pkmnData.id}</small>
                </CardTitle>
             </CardBody>
             <CardBody className="PDP-Body">
                <div>
                   {/* Pokemon Front and Back Imgs */}
-                  <img
-                     src={pkmnData.sprites.front_default}
-                     alt="front_sprite"
-                     className="Pkmn-Img"
-                  ></img>
-                  <img
-                     src={pkmnData.sprites.back_default}
-                     alt="back_sprite"
-                     className="Pkmn-Img"
-                  ></img>
+                  <div className="PDP-Body">
+                     <img
+                        src={pkmnData.sprites.front_default}
+                        alt="front_sprite"
+                        className="Pkmn-Img"
+                     />
+                     {isFav ? (
+                        <button
+                           className="Pkmn-Btn RemoveF"
+                           onClick={() => toggleFav(true)}
+                        >
+                           Remove Fav
+                        </button>
+                     ) : (
+                        <button
+                           className="Pkmn-Btn AddF"
+                           onClick={() => toggleFav(false)}
+                        >
+                           Add Fav
+                        </button>
+                     )}
+                     <img
+                        src={pkmnData.sprites.back_default}
+                        alt="back_sprite"
+                        className="Pkmn-Img"
+                     />
+                  </div>
 
                   {/* Pokemon Types */}
                   <div className="Pkmn-Data">
@@ -75,9 +129,10 @@ const PkmnDetails = () => {
                               <ListGroupItem className="Ability">
                                  <Link
                                     to={`/ability/${extractId(ability.url, "ability")}`}
+                                    className="Ability-Link"
                                  >
                                     {fixString(ability.name)}
-                                    {is_hidden && <small>H</small>}
+                                    {is_hidden && <sup>(H)</sup>}
                                  </Link>
                               </ListGroupItem>
                            );
