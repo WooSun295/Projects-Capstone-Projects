@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap";
+import { Card, CardBody, CardTitle } from "reactstrap";
 import axios from "axios";
 
 import PokeWikiAPI from "../../../helpers/backend";
 import Offpage from "../../Offpage/Offpage";
 
 import fixString from "../../../helpers/fixStrings";
-import extractId from "../../../helpers/extractId";
 
 import "./BerryDetails.css";
 

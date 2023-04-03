@@ -8,7 +8,6 @@ import ItemDetails from "./Components/Details/ItemDetails/ItemDetails";
 import BerryDetails from "./Components/Details/BerryDetails/BerryDetails";
 import Mainpage from "./Components/Mainpage/Mainpage";
 import Homepage from "./Components/Homepage/Homepage";
-import LogSign from "./Components/login-signup/LogSign";
 import UserDetails from "./Components/Details/UserDetails/UserDetails";
 
 import PokeWikiAPI from "./helpers/backend";

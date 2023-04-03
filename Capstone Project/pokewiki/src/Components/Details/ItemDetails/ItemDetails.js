@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Card, CardBody, CardTitle, ListGroup, ListGroupItem } from "reactstrap";
+import { Card, CardBody, CardTitle } from "reactstrap";
 
 import PokeWikiAPI from "../../../helpers/backend";
 import Offpage from "../../Offpage/Offpage";
 
 import fixString from "../../../helpers/fixStrings";
-import extractId from "../../../helpers/extractId";
 
 import "./ItemDetails.css";
 
@@ -33,7 +31,7 @@ const ItemDetails = () => {
          <Card>
             <CardBody className="IDP-Header">
                <CardTitle>
-                  <img src={itemData.sprites.default} />
+                  <img src={itemData.sprites.default} alt={itemData.name} />
                   <h1 className="IDP-Title">{fixString(itemData.name)}</h1>
                </CardTitle>
             </CardBody>
