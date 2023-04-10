@@ -59,3 +59,6 @@ Must create a config.js files in both the backend and src folders.
 `/`: General blank welcome page, navbar is always present
 
 `/[pokemon, ability, item, berry]`: Shows a list, with pictures of applicable, of all things in the category
+`/[pokemon, ability, item, berry]/:id`: Shows the details for the specified item. Pokemon and ability have links in their detailed pages going from one to another
+
+`/:username`: Shows user's details, and any favorited pokemon the user has (requires token)
