@@ -9,12 +9,13 @@ import BerryDetails from "./Components/Details/BerryDetails/BerryDetails";
 import Mainpage from "./Components/Mainpage/Mainpage";
 import Homepage from "./Components/Homepage/Homepage";
 import UserDetails from "./Components/Details/UserDetails/UserDetails";
+import Login from "./Components/Forms/Login";
+import Signup from "./Components/Forms/Signup";
 
 import PokeWikiAPI from "./helpers/backend";
-import { login, signup, update } from "./Components/FormCom/formFields";
 
 import "./App.css";
-import FormCom from "./Components/FormCom/FormCom";
+import UserUpdate from "./Components/Forms/UserUpdate";
 
 function App() {
    const [userToken, setUserToken] = useState(localStorage.getItem("token"));
@@ -31,8 +32,8 @@ function App() {
 
    const deleteUser = async (username) => {
       setUserToken(null);
-      await PokeWikiAPI.userDelete(username, JSON.parse(userToken)._token);
       localStorage.removeItem("token");
+      await PokeWikiAPI.userDelete(username, JSON.parse(userToken)._token);
    };
 
    return (
@@ -79,20 +80,10 @@ function App() {
 
                   {/* Auth Routes */}
                   <Route exact path="/login">
-                     <FormCom
-                        formFields={login}
-                        addToken={addToken}
-                        title="login"
-                        changeForm={true}
-                     />
+                     <Login addToken={addToken} />
                   </Route>
                   <Route exact path="/signup">
-                     <FormCom
-                        formFields={signup}
-                        addToken={addToken}
-                        title="signup"
-                        changeForm={true}
-                     />
+                     <Signup addToken={addToken} />
                   </Route>
 
                   {/* User Routes */}
@@ -104,13 +95,7 @@ function App() {
                      />
                   </Route>
                   <Route exact path="/user/:username/update">
-                     <FormCom
-                        formFields={update}
-                        addToken={addToken}
-                        title="user-update"
-                        changeForm={false}
-                        token={userToken}
-                     />
+                     <UserUpdate addToken={addToken} token={userToken} />
                   </Route>
                   <Redirect to="/" />
                </Switch>

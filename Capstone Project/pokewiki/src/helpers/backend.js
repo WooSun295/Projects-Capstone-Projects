@@ -40,7 +40,7 @@ class PokeWikiAPI {
             headers: { Authorization: `Bearer ${token}` },
          });
          return res.data;
-      } else if (!formData && token && id) {
+      } else if (token && id) {
          await axios.post(`${BASE_URL}/users/${username}/favs/${id}`, formData, {
             headers: { Authorization: `Bearer ${token}` },
          });

@@ -35,28 +35,34 @@ const BerryDetails = () => {
          <Card>
             <CardBody className="BDP-Header">
                <CardTitle>
-                  <img src={bryItemData.sprites.default} alt={bryData.name} />
+                  <img
+                     src={bryItemData.sprites.default}
+                     alt={bryData.name}
+                     className="BDP-Img"
+                  />
                   <h1 className="BDP-Title">{fixString(bryData.name)}</h1>
                </CardTitle>
             </CardBody>
             <CardBody className="BDP-Body">
-               <p>{bryItemData.effect_entries[0].effect}</p>
-               <table>
-                  <tbody>
-                     <tr>
-                        {bryData.flavors.map((flvr) => {
-                           let { name } = flvr.flavor;
-                           return <td>{name}</td>;
-                        })}
-                     </tr>
-                     <tr>
-                        {bryData.flavors.map((flvr) => {
-                           let { potency } = flvr;
-                           return <td>{potency}</td>;
-                        })}
-                     </tr>
-                  </tbody>
-               </table>
+               <p className="BDP-Desc">{bryItemData.effect_entries[0].effect}</p>
+               <div className="Berry-Data">
+                  <table>
+                     <tbody>
+                        <tr>
+                           {bryData.flavors.map((flvr) => {
+                              let { name } = flvr.flavor;
+                              return <td>{name}</td>;
+                           })}
+                        </tr>
+                        <tr>
+                           {bryData.flavors.map((flvr) => {
+                              let { potency } = flvr;
+                              return <td>{potency}</td>;
+                           })}
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
             </CardBody>
          </Card>
       </div>

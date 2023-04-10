@@ -2,14 +2,14 @@
    text-align: center;
    font-size: 3rem;
    margin: 0 2rem 2rem;
-   padding-top: 2rem;
-   margin-top: 40px;
+   padding-top: 1rem;
 }
 
 .IDP-Header {
    border-bottom: 2px solid black;
    background-color: #f6f6f6;
    text-align: center;
+   margin: 0;
 }
 
 .IDP-Body {
@@ -18,4 +18,15 @@
    justify-content: center;
    flex-wrap: wrap;
    align-items: center;
+   padding: 0 15%;
+   text-align: center;
+}
+
+.IDP-Img {
+   min-width: 100px;
+   margin-top: 2rem;
+}
+
+.IDP-Desc {
+   font-size: 1.5rem;
 }

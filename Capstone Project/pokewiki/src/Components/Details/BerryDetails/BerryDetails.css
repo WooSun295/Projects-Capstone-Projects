@@ -2,7 +2,7 @@
    text-align: center;
    font-size: 3rem;
    margin: 0 2rem 2rem;
-   padding-top: 2rem;
+   padding-top: 1rem;
 }
 
 .BDP-Header {
@@ -16,5 +16,32 @@
    display: flex;
    justify-content: center;
    flex-wrap: wrap;
+   column-gap: 100%;
    align-items: center;
+   padding: 50px 15%;
+}
+
+.BDP-Img {
+   min-width: 100px;
+   margin-top: 2rem;
+}
+
+.BDP-Desc {
+   font-size: 1.5rem;
+}
+
+.Berry-Data table {
+   display: flex;
+   justify-content: center;
+   margin-top: 20px;
+}
+
+.Berry-Data tbody {
+   border: 1px solid black;
+}
+
+.Berry-Data table td {
+   width: 90px;
+   border: 1px solid black;
+   text-align: center;
 }

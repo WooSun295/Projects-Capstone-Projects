@@ -27,28 +27,24 @@ const PkmnDetails = ({ userToken }) => {
          setPkmnData(data.pokemon);
          setIsLoading(false);
       };
-      getData();
-   }, [id]);
-
-   useEffect(() => {
       const getFav = async () => {
          setIsLoading(true);
          let token;
-         if (userToken) {
-            token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
-            if (reload) {
-               removeFav
-                  ? await PokeWikiAPI.userDelete(token, id)
-                  : await PokeWikiAPI.userPost(null, token, id);
-            }
-            let favs = await PokeWikiAPI.userGet(token, true);
-            setFavs(favs.favorites);
-         }
 
+         token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
+         if (reload) {
+            removeFav
+               ? await PokeWikiAPI.userDelete(token, id)
+               : await PokeWikiAPI.userPost(null, token, id);
+         }
+         let favs = await PokeWikiAPI.userGet(token, true);
+         setFavs(favs.favorites);
          setIsLoading(false);
       };
-      getFav();
-   }, [reload]);
+
+      getData();
+      if (userToken) getFav();
+   }, [id, reload]);
 
    const toggleFav = (bool) => {
       setRemove(bool);
@@ -83,21 +79,23 @@ const PkmnDetails = ({ userToken }) => {
                         alt="front_sprite"
                         className="Pkmn-Img"
                      />
-                     {isFav ? (
-                        <button
-                           className="Pkmn-Btn RemoveF"
-                           onClick={() => toggleFav(true)}
-                        >
-                           Remove Fav
-                        </button>
-                     ) : (
-                        <button
-                           className="Pkmn-Btn AddF"
-                           onClick={() => toggleFav(false)}
-                        >
-                           Add Fav
-                        </button>
-                     )}
+
+                     {userToken &&
+                        (isFav ? (
+                           <button
+                              className="Pkmn-Btn RemoveF"
+                              onClick={() => toggleFav(true)}
+                           >
+                              Remove Fav
+                           </button>
+                        ) : (
+                           <button
+                              className="Pkmn-Btn AddF"
+                              onClick={() => toggleFav(false)}
+                           >
+                              Add Fav
+                           </button>
+                        ))}
                      <img
                         src={pkmnData.sprites.back_default}
                         alt="back_sprite"

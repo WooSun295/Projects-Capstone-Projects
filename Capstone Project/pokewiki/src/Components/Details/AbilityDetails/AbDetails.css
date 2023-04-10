@@ -13,12 +13,37 @@
    border-bottom: 2px solid black;
    background-color: #f6f6f6;
    text-align: center;
+   padding-bottom: 10px;
 }
 
 .ADP-Body {
    background-color: #f6f6f6;
-   display: flex;
-   justify-content: center;
-   flex-wrap: wrap;
-   align-items: center;
+   text-align: center;
+   padding: 20px 0;
+}
+
+.ADP-ShortE {
+   color: gray;
+}
+
+.ADP-Effect {
+   font-size: 1.5rem;
+}
+
+.ADP-ListGroup {
+   padding: 0;
+}
+
+.ADP-ListLinks {
+   text-decoration: none;
+   list-style: none;
+   color: black;
+}
+
+.ADP-ListLinks:hover {
+   text-decoration: underline wavy goldenrod;
+}
+
+.ADP-ListItems {
+   padding: 2px 0;
 }

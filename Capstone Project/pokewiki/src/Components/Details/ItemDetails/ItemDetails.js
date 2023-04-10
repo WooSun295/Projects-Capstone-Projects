@@ -31,12 +31,16 @@ const ItemDetails = () => {
          <Card>
             <CardBody className="IDP-Header">
                <CardTitle>
-                  <img src={itemData.sprites.default} alt={itemData.name} />
+                  <img
+                     src={itemData.sprites.default}
+                     alt={itemData.name}
+                     className="IDP-Img"
+                  />
                   <h1 className="IDP-Title">{fixString(itemData.name)}</h1>
                </CardTitle>
             </CardBody>
             <CardBody className="IDP-Body">
-               <p>{itemData.effect_entries[0].effect}</p>
+               <p className="IDP-Desc">{itemData.effect_entries[0].effect}</p>
             </CardBody>
          </Card>
       </div>
