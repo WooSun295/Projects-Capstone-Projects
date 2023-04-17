@@ -30,12 +30,6 @@ function App() {
       localStorage.removeItem("token");
    };
 
-   const deleteUser = async (username) => {
-      setUserToken(null);
-      localStorage.removeItem("token");
-      await PokeWikiAPI.userDelete(username, JSON.parse(userToken)._token);
-   };
-
    return (
       <div className="App">
          <Router>
@@ -88,11 +82,7 @@ function App() {
 
                   {/* User Routes */}
                   <Route exact path="/user/:username">
-                     <UserDetails
-                        userToken={userToken}
-                        signout={removeToken}
-                        deleteUser={deleteUser}
-                     />
+                     <UserDetails userToken={userToken} signout={removeToken} />
                   </Route>
                   <Route exact path="/user/:username/update">
                      <UserUpdate addToken={addToken} token={userToken} />

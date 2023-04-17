@@ -60,13 +60,6 @@
    cursor: pointer;
 }
 
-.Delete:hover {
-   color: #f6f6f6;
-   background: red;
-   border: 2px solid red;
-   cursor: pointer;
-}
-
 .UP-Fav {
    padding: 10px;
 }

@@ -6,7 +6,7 @@ import Offpage from "../../Offpage/Offpage";
 
 import "./UserDetails.css";
 
-const UserDetails = ({ userToken, signout, deleteUser }) => {
+const UserDetails = ({ userToken, signout }) => {
    const { username } = useParams();
    const [userInfo, setUserInfo] = useState();
    const [isLoading, setIsLoading] = useState(true);
@@ -47,14 +47,6 @@ const UserDetails = ({ userToken, signout, deleteUser }) => {
                      <Link to="/">
                         <button className="UP-Btn Signout" onClick={signout}>
                            Sign Out
-                        </button>
-                     </Link>
-                     <Link to="/">
-                        <button
-                           className="UP-Btn Delete"
-                           onClick={() => deleteUser(userInfo.username)}
-                        >
-                           Delete Account
                         </button>
                      </Link>
                   </div>

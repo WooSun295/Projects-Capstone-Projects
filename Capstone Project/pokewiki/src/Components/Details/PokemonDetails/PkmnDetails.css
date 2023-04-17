@@ -58,7 +58,7 @@ li a.Ability-Link:hover {
 .Pkmn-Btn {
    display: inline-block;
    position: relative;
-   bottom: 86px;
+   bottom: 85px;
    padding: 7px 10px;
    font-weight: bold;
 }

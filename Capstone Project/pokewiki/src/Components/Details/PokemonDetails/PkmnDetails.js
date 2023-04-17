@@ -24,26 +24,24 @@ const PkmnDetails = ({ userToken }) => {
       const getData = async () => {
          setIsLoading(true);
          let data = await PokeWikiAPI.pokeGet("pokemon", id);
-         setPkmnData(data.pokemon);
-         setIsLoading(false);
-      };
-      const getFav = async () => {
-         setIsLoading(true);
-         let token;
+         if (userToken) {
+            let token;
 
-         token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
-         if (reload) {
-            removeFav
-               ? await PokeWikiAPI.userDelete(token, id)
-               : await PokeWikiAPI.userPost(null, token, id);
+            token = userToken._token ? userToken._token : JSON.parse(userToken)._token;
+            if (reload) {
+               removeFav
+                  ? await PokeWikiAPI.userDelete(token, id)
+                  : await PokeWikiAPI.userPost(null, token, id);
+            }
+            let favs = await PokeWikiAPI.userGet(token, true);
+            setFavs(favs.favorites);
          }
-         let favs = await PokeWikiAPI.userGet(token, true);
-         setFavs(favs.favorites);
+
+         setPkmnData(data.pokemon);
          setIsLoading(false);
       };
 
       getData();
-      if (userToken) getFav();
    }, [id, reload]);
 
    const toggleFav = (bool) => {
